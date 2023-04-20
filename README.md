@@ -1,7 +1,5 @@
 # Chat Tabular - Talking to your Tabular Data
 
-![chat-tabular](./chat-tabular.gif)
-
 ## Key workflow:
 - submit a csv, got the csv header and sample lines
 - call ChatGPT with prompt

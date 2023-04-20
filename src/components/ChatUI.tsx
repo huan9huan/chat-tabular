@@ -58,7 +58,7 @@ const ChatUI = ({openaiKey}: {openaiKey: string}) => {
 
   const renderRunning = (running:Running) => {
     if(!running) return ;
-    return <Chat running={running} />
+    return <Chat running={running} llm={{openaiKey}}/>
   }
 
   const renderHistory = () => {
