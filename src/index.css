@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.chat-tabular-container {
+    font-family: Google Sans, Helvetica Neue, sans-serif;
+    background-color: #f3f6fc;
+}
+.chat-container {
+    background-color: #fff;
+}
