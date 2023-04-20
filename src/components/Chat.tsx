@@ -110,7 +110,7 @@ export const Chat = ({running: initial, llm}: {running: Running, llm: LLM}) => {
         }
     }
     const _executeLogic = async (running: Running) => {
-        (window as any).running = running;
+        (window as any).running = running; // for debug
         try {
             if(running.questionType === 'chart') {
                 execChartLogic(running);

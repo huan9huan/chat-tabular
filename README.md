@@ -1,5 +1,8 @@
 # Chat Tabular - Talking to your Tabular Data
 
+### Preview
+![Chat Tabular](./chat-tabular.gif)
+
 ## Key workflow:
 - submit a csv, got the csv header and sample lines
 - call ChatGPT with prompt
@@ -9,12 +12,10 @@
 ```
 REACT_APP_OPENAI_KEY=<your openai api key>
 ```
+and run `npm run start`
 
-## local
-```
-npm run start
-```
-
+Then you can play
+![Chat Tabular](./chat-tabular.png)
 
 ## production
 ```

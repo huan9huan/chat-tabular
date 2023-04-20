@@ -122,16 +122,17 @@ export async function chat(prompt: string, llm: LLM): Promise<OpenaiResult | Ope
         }
     }
 }
-export function parseCode(content?: string, magic?: string) {
+
+export function parseCode(content?: string, starter?: string) {
     if(!content) {
         return;
     }
-    if(magic && content.startsWith(magic)) {
+    if(starter && content.startsWith(starter)) {
         return content;
     }
     const lines = content.split('\n');
     const startLine = lines.findIndex(l => l.trim().startsWith('```'));
     if(startLine < 0) return ;
-    const endLine = lines.slice(startLine + 1).findIndex(l => l.trim().startsWith('```')) + startLine;
+    const endLine = lines.slice(startLine + 1).findIndex(l => l.trim().startsWith('```')) + startLine + 1;
     return lines.slice(startLine + 1, endLine).join('\n');
 }
