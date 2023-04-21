@@ -1,5 +1,7 @@
 # Chat Tabular - Talking to your Tabular Data
 
+Try in [tabular.chat](https://tabular.chat/)
+
 ### Preview
 ![Chat Tabular](./chat-tabular.gif)
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Papa from 'papaparse'
-
+import { Row, Table } from '@chat-tabular/chain';
 import FileDropzone from './FileDropzone';
 import TablePreview from './TablePreview';
 import ChatInputBox from './ChatInputBox';
-import { Running, Table } from '../types';
+import { Running } from '../types';
 import { Chat } from './Chat';
 
 const ChatUI = ({openaiKey}: {openaiKey: string}) => {
