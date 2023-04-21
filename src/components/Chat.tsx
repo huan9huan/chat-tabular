@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactLoading from "react-loading";
 import { LLM, Running } from "../types";
 import TablePreview from "./TablePreview";
-import { toPrompt, chat, OpenaiResult, parseCode, decide, exportedFuncName } from '../utils/openai';
+import { OpenAI } from '@chat-tabular/chain';
 import { isArray, isNumber, isString } from 'lodash';
 import { CheckedIcon, ErrorIcon } from "./icons";
 
@@ -40,12 +40,12 @@ export const Chat = ({running: initial, llm}: {running: Running, llm: LLM}) => {
     const _decide = async (running: Running) => {
         try{
             setRunning({...running, status: 'deciding_type'});
-            const type = await decide(running.input.columns, running.question, llm);
+            const type = await OpenAI.decide(running.input.columns, running.question, llm.openaiKey);
             if(type === 'unknown') {
                 setRunning({...running, status: 'error', error: `can't understand the question goal`});
             } else {
                 const containerId = toContainerId(running.id);
-                const prompt = toPrompt(type as any, running.input, running.question, containerId);
+                const prompt = OpenAI.toPrompt(type as any, running.input, running.question, containerId);
                 setRunning({...running, status: 'decided_done', questionType: type, prompt});
             }
         }catch(err){
@@ -56,11 +56,11 @@ export const Chat = ({running: initial, llm}: {running: Running, llm: LLM}) => {
         try{
             setRunning({...running, status: 'asking_logic'});
             console.log('INFO: sending prompt ....\n', running.prompt);
-            const openaiResult = await chat(running.prompt, llm);
+            const openaiResult = await OpenAI.chat(running.prompt, llm.openaiKey);
             console.log('DEBUG: openai return\n', openaiResult);
-            const code = parseCode(((openaiResult as OpenaiResult).choices || [])[0]?.message?.content, exportedFuncName);
+            const code = OpenAI.parseCode(((openaiResult as OpenAI.OpenaiResult).choices || [])[0]?.message?.content, OpenAI.exportedFuncName);
             console.log('INFO: openai generate the code as \n', code);
-            if(code?.startsWith(exportedFuncName)) {
+            if(code?.startsWith(OpenAI.exportedFuncName)) {
                 setRunning({...running, status: 'ask_logic_done', code});
             } else {
                 setRunning({...running, status: 'error', error: `fail to generate the code, openai return as ${code}`});  
