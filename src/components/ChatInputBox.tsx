@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SendIcon } from './icons';
 
 type ChatInputBoxProps = {
   onSendMessage: (message: string) => void;
   disabled: boolean;
+  suggested: string;
 };
 
-const ChatInputBox: React.FC<ChatInputBoxProps> = ({ onSendMessage, disabled }) => {
-  const [message, setMessage] = useState('how many rows are there?');
+const ChatInputBox: React.FC<ChatInputBoxProps> = ({ onSendMessage, disabled, suggested }) => {
+  const [message, setMessage] = useState('');
+  useEffect(() => {
+    setMessage(suggested);
+  }, [suggested])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +61,6 @@ const ChatInputBox: React.FC<ChatInputBoxProps> = ({ onSendMessage, disabled }) 
           >
             <SendIcon />
           </button>
-          
         </div>
     </div>
   );
